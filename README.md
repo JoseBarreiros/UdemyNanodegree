@@ -79,7 +79,7 @@ In the class, we talked about cross-validation and the importance of creating me
 
 Use the following command to run the script once your function is implemented:
 ```
-python create_splits.py --data-dir /home/workspace/data
+python create_splits.py --data_dir /home/workspace/data/waymo/training_and_validation
 ```
 
 ### Edit the config file

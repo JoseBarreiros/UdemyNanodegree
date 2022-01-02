@@ -30,6 +30,7 @@ def split(data_dir):
     print('Total files: ', len(allFileNames))
     print('Training: ', len(train_FileNames))
     print('Validation: ', len(val_FileNames))
+    #pdb.set_trace()
     
     # Move files
     parent_directory=os.path.dirname(data_dir)
