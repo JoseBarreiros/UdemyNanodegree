@@ -6,7 +6,8 @@ import random
 import numpy as np
 
 from utils import get_module_logger
-
+import shutil
+import pdb
 
 def split(data_dir):
     """
@@ -16,9 +17,28 @@ def split(data_dir):
     args:
         - data_dir [str]: data directory, /home/workspace/data/waymo
     """
+    split_ratio=0.7
+    allFileNames = os.listdir(data_dir)
     
-    # TODO: Split the data present in `/home/workspace/data/waymo/training_and_validation` into train and val sets.
-    # You should move the files rather than copy because of space limitations in the workspace.
+    #shuffle data
+    np.random.shuffle(allFileNames)
+    #split dataset
+    train_FileNames, val_FileNames = np.split(np.array(allFileNames),
+                                                          [int(len(allFileNames)*split_ratio)])
+    train_FileNames = [data_dir+'/'+ name for name in train_FileNames.tolist()]
+    val_FileNames = [data_dir +'/'+ name for name in val_FileNames.tolist()]
+    print('Total files: ', len(allFileNames))
+    print('Training: ', len(train_FileNames))
+    print('Validation: ', len(val_FileNames))
+    
+    # Move files
+    parent_directory=os.path.dirname(data_dir)
+
+    for name in train_FileNames:
+        shutil.move(name, os.path.join(parent_directory,"train",os.path.basename(name)))
+    for name in val_FileNames:
+        shutil.move(name, os.path.join(parent_directory,"val",os.path.basename(name)))
+    
 
 if __name__ == "__main__": 
     parser = argparse.ArgumentParser(description='Split data into training / validation / testing')
