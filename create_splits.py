@@ -25,15 +25,15 @@ def split(data_dir):
     #split dataset
     train_FileNames, val_FileNames = np.split(np.array(allFileNames),
                                                           [int(len(allFileNames)*split_ratio)])
-    train_FileNames = [data_dir+ name for name in train_FileNames.tolist()]
-    val_FileNames = [data_dir + name for name in val_FileNames.tolist()]
+    train_FileNames = [data_dir+'/'+ name for name in train_FileNames.tolist()]
+    val_FileNames = [data_dir +'/'+ name for name in val_FileNames.tolist()]
     print('Total files: ', len(allFileNames))
     print('Training: ', len(train_FileNames))
     print('Validation: ', len(val_FileNames))
     
     # Move files
-    parent_directory=os.path.dirname(os.path.dirname(data_dir))
-    pdb.set_trace()
+    parent_directory=os.path.dirname(data_dir)
+
     for name in train_FileNames:
         shutil.move(name, os.path.join(parent_directory,"train",os.path.basename(name)))
     for name in val_FileNames:
